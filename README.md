@@ -7,6 +7,7 @@
 ## Requirement
 
 * cafu_core
+* cafu_kvs
 
 ## Install
 
