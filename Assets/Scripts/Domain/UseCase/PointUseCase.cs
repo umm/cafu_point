@@ -32,7 +32,7 @@ namespace CAFU.Point.Domain.UseCase
         /// <summary>
         /// Stream for points
         /// </summary>
-        UniRx.IObservable<int> PointAsObservable { get; }
+        IObservable<int> PointAsObservable { get; }
     }
 
     public class PointUseCase : IPointUseCase
@@ -63,7 +63,7 @@ namespace CAFU.Point.Domain.UseCase
             /// <summary>
             /// Create PointUseCase instance.
             /// </summary>
-            /// <param name="savePath">It's location to save keyvalue. e.g. `UnityEngine.Application.persistentDataPath + "/default.kv"`</param> 
+            /// <param name="savePath">It's location to save keyvalue. e.g. `UnityEngine.Application.persistentDataPath + "/default.kv"`</param>
             /// <param name="key">It's key to get/set entity</param>
             /// <returns></returns>
             public PointUseCase Create(string savePath, string key)
@@ -88,7 +88,7 @@ namespace CAFU.Point.Domain.UseCase
             set { this.Model.Point.Value = value; }
         }
 
-        public UniRx.IObservable<int> PointAsObservable
+        public IObservable<int> PointAsObservable
         {
             get { return this.Model.Point; }
         }
