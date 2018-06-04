@@ -1,4 +1,5 @@
-﻿using CAFU.Core.Presentation.Presenter;
+﻿using System;
+using CAFU.Core.Presentation.Presenter;
 using CAFU.Point.Domain.UseCase;
 
 namespace CAFU.Point.Presentation.Presenter
@@ -40,7 +41,7 @@ namespace CAFU.Point.Presentation.Presenter
             return presenter.PointUseCase.Point;
         }
 
-        public static UniRx.IObservable<int> GetPointAsObservable(this IPointPresenter presenter)
+        public static IObservable<int> GetPointAsObservable(this IPointPresenter presenter)
         {
             return presenter.PointUseCase.PointAsObservable;
         }
