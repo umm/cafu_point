@@ -8,7 +8,7 @@ namespace CAFU.Point.Domain.Translator
     {
         public PointModel Translate(PointEntity entity)
         {
-            return new PointModel(entity.Point);
+            return new PointModel(entity?.Point ?? 0);
         }
     }
 
@@ -16,9 +16,9 @@ namespace CAFU.Point.Domain.Translator
     {
         public PointEntity Translate(PointModel model)
         {
-            return new PointEntity()
+            return new PointEntity
             {
-                Point = model.Point.Value
+                Point = model?.Point?.Value ?? 0
             };
         }
     }

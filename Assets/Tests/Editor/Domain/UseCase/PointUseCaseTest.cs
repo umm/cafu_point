@@ -79,5 +79,22 @@ namespace CAFU.Point.Domain.UseCase
             Assert.AreEqual(1, observer.OnNextCount);
             Assert.AreEqual(100, observer.OnNextValues[0]);
         }
+
+
+        [Test]
+        public void LoadWithoutSaveTest()
+        {
+            Assert.DoesNotThrow(() =>
+            {
+                this.usecase.Load();
+            });
+
+            this.usecase.Point += 10;
+            this.usecase.Save();
+            
+            var usecase2 = new PointUseCase.Factory().Create(this.savePath, "key");
+            usecase2.Load();
+            Assert.AreEqual(10, usecase2.Point);
+        }
     }
 }
