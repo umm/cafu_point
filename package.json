@@ -1,6 +1,6 @@
 {
   "name": "@umm/cafu_point",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Data store system for game point",
   "homepage": "https://github.com/umm-projects/cafu_point",
   "bugs": {
@@ -26,7 +26,8 @@
   "dependencies": {
     "@umm/cafu_core": "umm-projects/cafu_core#^2.0.0",
     "@umm/cafu_kvs": "umm-projects/cafu_kvs#^1.0.0",
-    "@umm/scripts": "umm-projects/scripts#^1.0.0"
+    "@umm/scripts": "umm-projects/scripts#^1.0.0",
+    "@umm/unirx": "umm-projects/unirx#^2.0.0"
   },
   "devDependencies": {
     "@umm/extra_unirx": "umm-projects/extra_unirx#^1.0.0"
