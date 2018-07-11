@@ -41,13 +41,24 @@ namespace CAFU.Point.Domain.UseCase
         {
             private string Key = null;
 
+            private IKeyValueRepository Repository;
+
             private string SavePath = null;
 
             protected override void Initialize(PointUseCase instance)
             {
                 base.Initialize(instance);
 
-                instance.Initialize(this.SavePath, this.Key);
+                if (Repository != null)
+                {
+                    instance.Repository = Repository;
+                }
+                else if (SavePath != null)
+                {
+                    instance.Repository = new DefaultKeyValueRepository.Factory().Create(SavePath);
+                }
+
+                instance.Initialize(this.Key);
             }
 
             /// <summary>
@@ -61,7 +72,7 @@ namespace CAFU.Point.Domain.UseCase
             }
 
             /// <summary>
-            /// Create PointUseCase instance.
+            /// Create PointUseCase instance with a save path.
             /// </summary>
             /// <param name="savePath">It's location to save keyvalue. e.g. `UnityEngine.Application.persistentDataPath + "/default.kv"`</param>
             /// <param name="key">It's key to get/set entity</param>
@@ -70,6 +81,19 @@ namespace CAFU.Point.Domain.UseCase
             {
                 this.SavePath = savePath;
                 this.Key = key;
+                return base.Create();
+            }
+
+            /// <summary>
+            /// Create PointUseCase instance with a repository instance.
+            /// </summary>
+            /// <param name="repository">Instance of IKeyValueRepository</param>
+            /// <param name="key">It's key to get/set entity</param>
+            /// <returns></returns>
+            public PointUseCase Create(IKeyValueRepository repository, string key)
+            {
+                Repository = repository;
+                Key = key;
                 return base.Create();
             }
         }
@@ -95,9 +119,8 @@ namespace CAFU.Point.Domain.UseCase
 
         private PointModel Model { get; set; }
 
-        protected void Initialize(string savePath, string key)
+        protected void Initialize(string key)
         {
-            this.Repository = new DefaultKeyValueRepository.Factory().Create(savePath);
             this.ModelTranslator = new PointModelTranslator();
             this.EntityTranslator = new PointEntityTranslator();
             this.Key = key;
