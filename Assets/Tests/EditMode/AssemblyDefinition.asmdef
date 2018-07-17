@@ -3,7 +3,8 @@
     "references": [
         "umm@cafu_point",
         "umm@extra_unirx",
-        "umm@cafu_core"
+        "umm@cafu_core",
+        "umm@cafu_kvs"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
