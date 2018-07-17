@@ -12,7 +12,7 @@
 ## Install
 
 ```shell
-yarn add "umm-projects/cafu_point#^1.0.0"
+yarn add "umm/cafu_point#^1.0.0"
 ```
 
 ## Usage
