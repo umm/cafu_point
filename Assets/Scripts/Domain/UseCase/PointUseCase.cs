@@ -139,7 +139,8 @@ namespace CAFU.Point.Domain.UseCase
             this.Repository.Load();
 
             var entity = this.Repository.GetEntity<PointEntity>(this.Key);
-            this.Model = this.ModelTranslator.Translate(entity);
+            var model = this.ModelTranslator.Translate(entity);
+            this.Model.Point.Value = model.Point.Value; // Not directory assign the value to keep value observation
         }
 
         public void Reset()

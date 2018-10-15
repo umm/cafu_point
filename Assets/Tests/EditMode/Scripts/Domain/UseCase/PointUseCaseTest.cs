@@ -84,17 +84,36 @@ namespace CAFU.Point.Domain.UseCase
         [Test]
         public void LoadWithoutSaveTest()
         {
-            Assert.DoesNotThrow(() =>
-            {
-                this.usecase.Load();
-            });
+            Assert.DoesNotThrow(() => { this.usecase.Load(); });
 
             this.usecase.Point += 10;
             this.usecase.Save();
-            
+
             var usecase2 = new PointUseCase.Factory().Create(this.savePath, "key");
             usecase2.Load();
             Assert.AreEqual(10, usecase2.Point);
+        }
+
+        [Test]
+        public void ObservationKeepAfterLoadingTest()
+        {
+            var observer = new TestObserver<int>();
+            this.usecase.PointAsObservable.Subscribe(observer);
+
+            Assert.AreEqual(1, observer.OnNextCount);
+            Assert.AreEqual(0, observer.OnNextLastValue);
+
+            this.usecase.Point += 10;
+            Assert.AreEqual(2, observer.OnNextCount);
+            Assert.AreEqual(10, observer.OnNextLastValue);
+
+            this.usecase.Load();
+            Assert.AreEqual(3, observer.OnNextCount);
+            Assert.AreEqual(0, observer.OnNextLastValue);
+
+            this.usecase.Point += 10;
+            Assert.AreEqual(4, observer.OnNextCount);
+            Assert.AreEqual(10, observer.OnNextLastValue);
         }
     }
 }
